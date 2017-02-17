@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Bf4ProgressIndicator</id>
+    <version>1.0.0</version>
+    <title>Battlefield 4 progress indicator</title>
+    <authors>Niel Morgan Thomas</authors>
+    <owners>Niel Morgan Thomas</owners>
+    <licenseUrl>http://www.codeproject.com/info/cpol10.aspx</licenseUrl>
+    <projectUrl>http://www.codeproject.com/Articles/697026/BATTLEFIELD-4-progress-indicator</projectUrl>
+    <iconUrl>http://www.codeproject.com/KB/progress/697026/prompt.gif</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A Battlefield 4 progress indicator, emulating an older Terminal prompt.
+Look at project site for more info.</description>
+    <summary>The Code Project Open License (CPOL)</summary>
+    <releaseNotes>This is version 1.0.0.0</releaseNotes>
+    <copyright>Niel Morgan Thomas</copyright>
+    <language>en-US</language>
+    <tags>Battlefield 4 progress indicator</tags>
+  </metadata>
+</package>

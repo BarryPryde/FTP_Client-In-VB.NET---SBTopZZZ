@@ -1,0 +1,93 @@
+[SCRIPT]
+UPLOAD:-
+Private Sub Extra()
+        Try
+            Dim mReq As System.Net.FtpWebRequest
+            mReq = DirectCast(System.Net.WebRequest.Create("ftp://files.000webhost.com/" & OpenFileDialog1.SafeFileName.ToString), System.Net.FtpWebRequest)
+            With mReq
+                .Credentials = New System.Net.NetworkCredential("sbtopzzz", "Your xCode")
+                .Method = WebRequestMethods.Ftp.UploadFile
+                .Timeout = 100000
+                .UseBinary = True
+                .ContentLength = OpenFileDialog1.SafeFileName.Length
+
+            End With
+            Dim ufile() As Byte = File.ReadAllBytes(OpenFileDialog1.FileName.ToString)
+            Dim ftpwebstreamrequest As Stream = mReq.GetRequestStream()
+            ftpwebstreamrequest.Write(ufile, 0, ufile.Length)
+            ftpwebstreamrequest.Close()
+            ftpwebstreamrequest.Dispose()
+            MsgBox("Loaded")
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+
+        End Try
+    End Sub
+
+DOWNLOAD:-
+Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
+        If ListBox1.Items.Count = 0 Then
+            MsgBox("No File Found!", MsgBoxStyle.Critical, "Please Click " & "GetFiles" & " for checksum.")
+            Me.Refresh()
+        Else
+            Try
+                Dim ftpwebrequest As FtpWebRequest = DirectCast(WebRequest.Create("ftp://" & "sbtopzzz@files.000webhost.com/" & ListBox1.SelectedItem.ToString), FtpWebRequest)
+                'Set properties
+                With ftpwebrequest
+                    'ftp server username and password
+                    .Credentials = New NetworkCredential("sbtopzzz", "Your xCode")
+                    'set the method to download
+                    .Method = WebRequestMethods.Ftp.DownloadFile
+                    'upload timeout to 100 seconds
+                    .Timeout = "100000"
+                End With
+
+                Dim ftpwebres As FtpWebResponse = CType(ftpwebrequest.GetResponse(), FtpWebResponse)
+                Dim ftpstream As Stream = ftpwebres.GetResponseStream()
+
+                With savefildlg
+                    .Title = "Save File Download from FTP Server"
+                    .FileName = Path.GetFullPath(ftpwebrequest.RequestUri.LocalPath)
+                    'set type of files
+                    .Filter = "File Formats(*.jpg;*.jpeg;*.txt;*.doc;*.docx;*.zip;*.rar)|*.jpg;*.jpeg;*.txt;*.doc;*.docx;*.zip;*.rar|Image File(*.jpg;*.jpeg)|*.jpg;*.jpeg|Text File(*.txt)|*.txt|Documents(*.dic;*.docx)|*.doc;*.docx|Compressed Files(*.zip;*.rar)|*.zip;*.rar"
+                End With
+                If savefildlg.ShowDialog = Windows.Forms.DialogResult.OK Then
+                    Dim ftpfilestream As FileStream = File.Create(savefildlg.FileName)
+                    Dim buff(1024) As Byte
+                    Dim bytesread As Integer = 0
+                    While True
+                        bytesread = ftpstream.Read(buff, 0, buff.Length)
+                        If (bytesread = 0) Then Exit While
+                        ftpfilestream.Write(buff, 0, bytesread)
+                    End While
+                    ftpfilestream.Close()
+                    ftpstream.Close()
+                End If
+                MsgBox("File Successfully Downloaded!")
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Critical, "Error")
+            End Try
+        End If
+    End Sub
+
+GET-FILES:-
+'Create an FTP web request
+        Dim ftpwebrequest As FtpWebRequest = DirectCast(WebRequest.Create("ftp://files.000webhost.com"), FtpWebRequest)
+        'Set properties
+        With ftpwebrequest
+            'ftp server username and password
+            .Credentials = New NetworkCredential("sbtopzzz", "Your xCode")
+            'set the method to download
+            .Method = WebRequestMethods.Ftp.ListDirectory
+            'upload timeout to 100 seconds
+            .Timeout = "100000"
+        End With
+
+        Dim ftpwebres As FtpWebResponse = CType(ftpwebrequest.GetResponse(), FtpWebResponse)
+        Dim ftpstreamreader As StreamReader = New StreamReader(ftpwebres.GetResponseStream())
+        'clear list of files
+        ListBox1.Items.Clear()
+        'start loading files from an FTP server into list
+        While (ftpstreamreader.Peek() > -1)
+            ListBox1.Items.Add(ftpstreamreader.ReadLine())
+        End While

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Goblinfactory.ProgressBar</id>
+    <version>0.0.1.0</version>
+    <title>Goblinfactory.ProgressBar.Lib</title>
+    <authors>Alan Hemmings</authors>
+    <owners>Alan Hemmings</owners>
+    <licenseUrl>https://raw.githubusercontent.com/goblinfactory/progress-bar/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/goblinfactory/progress-bar/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/goblinfactory/progress-bar/master/progress.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>(This package has moved; the new package that replaces this one is 'Goblinfactory.Konsole'. )</description>
+    <summary />
+    <releaseNotes>Project moved to https://github.com/goblinfactory/konsole</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>console progress console-progress progressbar progress-bar</tags>
+  </metadata>
+</package>
