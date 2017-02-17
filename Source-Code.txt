@@ -1,5 +1,8 @@
 [SCRIPT]
+
+
 UPLOAD:-
+
 Private Sub Extra()
         Try
             Dim mReq As System.Net.FtpWebRequest
@@ -24,7 +27,9 @@ Private Sub Extra()
         End Try
     End Sub
 
+
 DOWNLOAD:-
+
 Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         If ListBox1.Items.Count = 0 Then
             MsgBox("No File Found!", MsgBoxStyle.Critical, "Please Click " & "GetFiles" & " for checksum.")
@@ -70,7 +75,9 @@ Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Hand
         End If
     End Sub
 
+
 GET-FILES:-
+
 'Create an FTP web request
         Dim ftpwebrequest As FtpWebRequest = DirectCast(WebRequest.Create("ftp://files.000webhost.com"), FtpWebRequest)
         'Set properties
@@ -91,3 +98,5 @@ GET-FILES:-
         While (ftpstreamreader.Peek() > -1)
             ListBox1.Items.Add(ftpstreamreader.ReadLine())
         End While
+        
+        'CODE BY SBTopZZZ
